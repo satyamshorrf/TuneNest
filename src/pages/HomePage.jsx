@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { Play, Home, Music, Disc, Users } from "lucide-react";
+import { Play, Home, Music, Disc, Users, Search } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/Card";
 
-export function HomePage() {
+export default function HomePage() {
   const [activeTab, setActiveTab] = useState("home");
   const [showSongModal, setShowSongModal] = useState(false);
   const [showArtistModal, setShowArtistModal] = useState(false);
   const [showGenreModal, setShowGenreModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedGenre, setSelectedGenre] = useState("Rock");
 
   const trendingSongs = [
     {
@@ -52,7 +53,7 @@ export function HomePage() {
     },
   ];
 
-  const genres = [
+  const genresData = [
     {
       id: 1,
       name: "Gravity",
@@ -79,6 +80,27 @@ export function HomePage() {
     },
   ];
 
+  const environments = [
+    "https://via.placeholder.com/200x120?text=Scene+1",
+    "https://via.placeholder.com/200x120?text=Scene+2",
+    "https://via.placeholder.com/200x120?text=Scene+3",
+    "https://via.placeholder.com/200x120?text=Scene+4",
+    "https://via.placeholder.com/200x120?text=Scene+5",
+    "https://via.placeholder.com/200x120?text=Scene+6",
+    "https://via.placeholder.com/200x120?text=Scene+7",
+    "https://via.placeholder.com/200x120?text=Scene+8",
+  ];
+
+  const avatars = [
+    "https://via.placeholder.com/80x100?text=Rock+1",
+    "https://via.placeholder.com/80x100?text=Rock+2",
+    "https://via.placeholder.com/80x100?text=Rock+3",
+    "https://via.placeholder.com/80x100?text=Rock+4",
+    "https://via.placeholder.com/80x100?text=Rock+5",
+  ];
+
+  const genres = ["Rock", "Pop", "JAZZ", "Techno", "More"];
+
   const openSongModal = (song) => {
     setSelectedItem(song);
     setShowSongModal(true);
@@ -96,27 +118,9 @@ export function HomePage() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <header className="p-6 flex items-center justify-between border-b border-gray-800">
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500">
-            <div className="w-2 h-2 rounded-full bg-white mx-0.5"></div>
-            <div className="w-2 h-2 rounded-full bg-white mx-0.5"></div>
-            <div className="w-2 h-2 rounded-full bg-white mx-0.5"></div>
-          </div>
-          <h1 className="text-2xl font-bold">Cloud</h1>
-        </div>
-      </header>
-
       <main className="p-6 max-w-7xl mx-auto">
-        {/* First section */}
+        {/* Trending Song Section */}
         <section className="mb-12">
-          {/* <div className="flex items-center justify-between mb-6">
-        
-            <button className="flex items-center space-x-2 text-purple-400 hover:text-purple-300">
-             
-            </button>
-          </div> */}
-
           <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
             {trendingSongs.slice(0, 1).map((song) => (
               <Card
@@ -126,30 +130,25 @@ export function HomePage() {
               >
                 <div className="w-full md:w-1/3 h-48 md:h-auto p-5">
                   <img
-                    src="public/HeadPhone.jpg"
+                    src="/HeadPhone.jpg"
                     alt={song.title}
                     style={{ borderRadius: "10px" }}
                     className="w-40 h-full object-cover"
                   />
                 </div>
-
-                {/* Right Section: Content + Play Button */}
                 <div className="flex justify-between items-center w-full md:w-2/3 p-4">
-                  {/* Text Content */}
                   <div>
                     <CardTitle className="text-3xl">{song.title}</CardTitle>
                     <CardContent className="mt-2 px-0 py-0">
                       <p className="text-purple-400 mb-1">{song.artist}</p>
-                      <p className="text-gray-400 text-sm border border-gray-700 p-1 rounded-3xl ">
+                      <p className="text-gray-400 text-sm border border-gray-700 p-1 rounded-3xl">
                         AI powered recommendations
                         <Music size={16} className="inline-block ml-1" />
                       </p>
                     </CardContent>
                   </div>
-
-                  {/* Play Button Image (Right Side) */}
                   <img
-                    src="public/PlayButton.jpeg"
+                    src="/PlayButton.jpeg"
                     alt="Play"
                     className="w-18 h-16 object-contain rounded-full bg-gray-800 hover:bg-gray-700 cursor-pointer"
                   />
@@ -159,69 +158,29 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">Trending Songs</h2>
-            <button className="flex items-center space-x-2 text-purple-400 hover:text-purple-300">
-              <Play size={18} />
-              <span>Play All</span>
-            </button>
-          </div>
-
-          <div className="w-full flex relative mb-8">
-            {/* Container for the black box with grid text */}
-            <div className="grid grid-cols-2 w-[37rem] h-[13rem] border-2 border-gray-700 rounded-xl absolute top-10 right-0 px-12 py-6">
-              {/* First Row */}
-              <h2 className="text-7xl font-bold pt-2">ELON</h2>
-              <h2 className="text-5xl text-right pt-6 ">STARLIGHT</h2>
-              {/* Second Row */}
-              <h2 className="text-6xl font-bold pb-12">BLACK</h2>
-              <h2 className="text-5xl text-center">DRIVE</h2>
-            </div>
-          </div>
-
-          <div className="md:grid-cols-2 ">
-            {trendingSongs.map((song) => (
-              <Card
-                key={song.id}
-                className="bg-gray-800 border-gray-700 hover:bg-gray-750 w-1/2 mb-4 transition-colors cursor-pointer"
-                onClick={() => openSongModal(song)}
-              >
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle className="text-lg">{song.title}</CardTitle>
-                  <Play size={20} className="text-purple-400" />
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-400 text-sm">{song.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* text design */}
-        </section>
-
+        {/* Top Artists */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Top Artists This Week</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {topArtists.map((artist) => (
               <div
                 key={artist.id}
-                className={`p-6 rounded-xl ${artist.color}  w-[22.5rem] h-[22rem] bg-opacity-20 hover:bg-opacity-30 transition-all cursor-pointer`}
+                className={`p-6 rounded-xl ${artist.color} w-[22.5rem] h-[22rem] bg-opacity-20 hover:bg-opacity-30 transition-all cursor-pointer`}
                 onClick={() => openArtistModal(artist)}
               >
-              
-             
-            
+                <h3 className="text-xl font-semibold">{artist.name}</h3>
+                <p>{artist.genre}</p>
+                <p>{artist.monthlyListeners} monthly listeners</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section>
+        {/* Genre Cards */}
+        <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Genres You May Like</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {genres.map((genre) => (
+            {genresData.map((genre) => (
               <div
                 key={genre.id}
                 className={`p-6 rounded-xl ${genre.color} bg-opacity-20 hover:bg-opacity-30 transition-all cursor-pointer`}
@@ -232,6 +191,68 @@ export function HomePage() {
                 </div>
                 <h3 className="text-xl font-bold mb-1">{genre.name}</h3>
                 <p className="text-sm text-gray-300">{genre.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Virtual Environment Section */}
+        <section className="mb-12">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-bold">Select virtual environment</h2>
+            <div className="flex items-center bg-gray-800 px-3 py-2 rounded-md">
+              <Search className="text-gray-400 mr-2 w-4 h-4" />
+              <input
+                type="text"
+                placeholder="describe your scene"
+                className="bg-transparent outline-none text-sm placeholder-gray-400"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 md:grid-cols-4 gap-4 mb-6">
+            {environments.map((env, idx) => (
+              <img
+                key={idx}
+                src={env}
+                alt={`Env ${idx + 1}`}
+                className="rounded-md hover:opacity-90 cursor-pointer"
+              />
+            ))}
+          </div>
+
+          <h2 className="text-2xl font-bold mb-4">Add artist’s avatar</h2>
+
+          <div className="flex space-x-2 mb-4">
+            {genres.map((genre) => (
+              <button
+                key={genre}
+                onClick={() => setSelectedGenre(genre)}
+                className={`px-4 py-1 rounded-full text-sm font-medium transition-all ${
+                  selectedGenre === genre
+                    ? "bg-fuchsia-600 text-white"
+                    : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                }`}
+              >
+                {genre}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex gap-4 overflow-x-auto pb-2">
+            {avatars.map((avatar, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col items-center bg-gray-800 p-2 rounded-xl w-24"
+              >
+                <img
+                  src={avatar}
+                  alt={`Avatar ${idx + 1}`}
+                  className="rounded-lg mb-2 w-20 h-24 object-cover"
+                />
+                <button className="bg-white text-black rounded-full p-1 hover:bg-gray-300">
+                  ▶
+                </button>
               </div>
             ))}
           </div>
@@ -256,11 +277,6 @@ export function HomePage() {
           onClose={() => setShowGenreModal(false)}
         />
       )}
-
-
-      
     </div>
   );
 }
-
-export default HomePage;

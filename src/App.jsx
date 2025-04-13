@@ -7,6 +7,7 @@ import ArtistPage from "./pages/ArtistPage"
 import AlbumPage from "./pages/AlbumPage"
 import SongPage from "./pages/SongPage"
 import SearchPage from "./pages/SearchPage"
+import UserPage from "./pages/UserPage"
 import PlaylistPage from "./pages/PlaylistPage"
 import NotFoundPage from "./pages/NotFoundPage"
 
@@ -24,9 +25,10 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/artists" element={<ArtistPage />} />
-          <Route path="/album" element={<AlbumPage />} />
+          <Route path="/albums" element={<AlbumPage />} />
           <Route path="/songs" element={<SongPage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/users" element={<UserPage />} />
           <Route path="/playlist" element={<PlaylistPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

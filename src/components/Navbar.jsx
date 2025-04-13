@@ -35,13 +35,17 @@ const Navbar = () => {
 
         {/* Icons */}
         <div className="flex gap-4 items-center">
-          <button className="p-2 rounded-full hover:bg-gray-800 transition">
-            <Search className="w-5 h-5" />
-          </button>
-          <button className="p-2 rounded-full hover:bg-gray-800 transition">
-            <User className="w-5 h-5" />
-          </button>
-        </div>
+    <Link to="/search">
+      <button className="p-2 rounded-full hover:bg-gray-800 transition">
+        <Search className="w-5 h-5" />
+      </button>
+    </Link>
+    <Link to="/users">
+      <button className="p-2 rounded-full hover:bg-gray-800 transition">
+        <User className="w-5 h-5" />
+      </button>
+    </Link>
+  </div>
       </div>
     </header>
   );
