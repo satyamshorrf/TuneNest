@@ -141,7 +141,7 @@ const SongPage = () => {
             filteredResults.map((result, index) => (
               <div
                 key={index}
-                className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-cyan-400 transition-shadow flex items-center p-4 relative"
+                className="bg-gray-800 mb-3 rounded-xl overflow-hidden shadow-lg hover:shadow-cyan-300 transition-shadow flex items-center p-4 relative"
               >
                 {/* Left: Circular Image */}
                 <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
