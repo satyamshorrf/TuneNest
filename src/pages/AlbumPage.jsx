@@ -1,6 +1,6 @@
 import { Play, Search } from "lucide-react";
 
-const albums = Array(10).fill({ name: "Starlight Drive", artist: "Luma" });
+const albums = Array(10).fill({ name: "Starlight Drive"});
 
 function AlbumsPage() {
   return (
@@ -17,8 +17,9 @@ function AlbumsPage() {
               src="/HeadPhone.jpg"
               alt={`${album.name} cover`}
             />
-            <div className="text-lg font-semibold mt-3 text-white">{album.name}</div>
-            <div className="text-sm text-zinc-400">{album.artist}</div>
+            <div className="text-lg font-semibold mt-3 text-white">
+              {album.name}
+            </div>{" "}
           </div>
         ))}
       </div>

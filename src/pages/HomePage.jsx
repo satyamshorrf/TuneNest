@@ -11,7 +11,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "../components/Card";
 
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState("home");
+  // const [activeTab, setActiveTab] = useState("home");
   const [showSongModal, setShowSongModal] = useState(false);
   const [showArtistModal, setShowArtistModal] = useState(false);
   const [showGenreModal, setShowGenreModal] = useState(false);
@@ -27,7 +27,7 @@ export default function HomePage() {
       duration: "3:45",
       plays: "1.2M",
       coverImage: "/HeadPhone.jpg",
-      audioUrl: "/audio/song1.mp3",
+      audioUrl: "/audio.mp3",
     },
     {
       id: 2,
@@ -37,7 +37,7 @@ export default function HomePage() {
       duration: "4:12",
       plays: "890K",
       coverImage: "/PlayButton.jpeg",
-      audioUrl: "/audio/song2.mp3",
+      audioUrl: "/audio.mp3",
     },
   ];
 
