@@ -7,30 +7,35 @@ const mockResults = [
     artist: "Artist A",
     duration: "3:32",
     cover: "public/logo.jpeg",
+    audio: "public/audio.mp3",
   },
   {
     title: "Midnight Drive",
     artist: "Artist C",
     duration: "3:32",
     cover: "public/logo.jpeg",
+    audio: "public/audio.mp3",
   },
   {
     title: "Purple Lights",
     artist: "Artist D",
     duration: "3:32",
     cover: "public/logo.jpeg",
+    audio: "public/audio.mp3",
   },
   {
     title: "Neon Rain",
     artist: "Artist E",
     duration: "3:32",
     cover: "public/logo.jpeg",
+    audio: "public/audio.mp3",
   },
   {
     title: "Dreamscape",
     artist: "Artist F",
     duration: "3:32",
     cover: "public/logo.jpeg",
+    audio: "public/audio.mp3",
   },
 ];
 
@@ -90,18 +95,18 @@ const SongPage = () => {
         </div>
 
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center justify-between mb-4">
-            <button className="border border-gray-700 rounded-full px-2 py-1 flex items-center gap-2 hover:bg-gray-800 transition-colors">
+          <div className="flex items-center justify-between mb-4 ml-3">
+            <button className="border border-gray-700 rounded-xl px-2 py-1 flex items-center gap-2 hover:bg-gray-800 transition-colors">
               <h3 className="text-lg font-semibold text-gray-300">For you</h3>
             </button>
           </div>
           <div className="flex items-center justify-between mb-4">
-            <button className="border border-gray-700 rounded-full px-2 py-1 flex items-center gap-2 hover:bg-gray-800 transition-colors">
+            <button className="border border-gray-700 rounded-xl px-2 py-1 flex items-center gap-2 hover:bg-gray-800 transition-colors">
               <h3 className="text-lg font-semibold text-gray-300">Tranding</h3>
             </button>
           </div>
-          <div className="flex items-center justify-between mb-4">
-            <button className="border border-gray-700 rounded-full px-2 py-1 flex items-center gap-2 hover:bg-gray-800 transition-colors">
+          <div className="flex items-center justify-between mb-4 ml-80">
+            <button className="border border-gray-700 rounded-xl px-2 py-1 flex items-center gap-2 hover:bg-gray-800 transition-colors">
               <h3 className="text-lg font-semibold text-gray-300">Saved</h3>
             </button>
           </div>

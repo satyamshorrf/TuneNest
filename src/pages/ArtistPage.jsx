@@ -14,7 +14,7 @@ function ArtistPage() {
           >
             <img
               className="mx-auto h-32 w-32 object-cover opacity-70 hover:scale-150 hover:opacity-100 rounded-xl transition"
-              src="/HeadPhone.jpg"
+              src="./avatar_g_1.png"
               alt={`${album.name} cover`}
             />
             <div className="text-lg font-semibold mt-3 text-white">{album.name}</div>
@@ -27,3 +27,12 @@ function ArtistPage() {
 }
 
 export default ArtistPage;
+
+
+
+
+
+
+
+
+
