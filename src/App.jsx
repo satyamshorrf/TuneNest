@@ -18,7 +18,7 @@ import MusicPlayer from "./components/MusicPlayer"
 
 function App() {
   return (
-    <div className="relative z-10 pt-20 min-h-screen bg-black text-white">
+    <div className="relative z-10 pt-20 min-h-screen bg-gray-900 text-white">
       <Navbar />
 
       <div className="pb-32">
