@@ -125,7 +125,7 @@ To complete your README:
 1. Add actual screenshots matching the placeholder names
 2. Update any specific technical details about your implementation
 3. Include any additional deployment instructions if applicable
-4. Add badges for CI/CD, package versions, etc. if available
+4. Add badges for CI/CD, package versions, etc. if availables
 
 ````
 ![2_Objective-User-Friendly-Design](https://github.com/user-attachments/assets/2eb27411-abc3-4a0d-a1fc-34ab998b2051)
