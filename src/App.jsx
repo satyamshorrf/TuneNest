@@ -13,15 +13,15 @@ import NotFoundPage from "./pages/NotFoundPage"
 
 // Components
 import Navbar from "./components/Navbar"
-import Footer from "./components/Footer"
+
 import MusicPlayer from "./components/MusicPlayer"
 
 function App() {
   return (
-    <div className="relative z-10 pt-20 min-h-screen bg-black text-white">
+    <div className="relative z-10 pt-20 min-h-screen bg-gray-900 text-white">
       <Navbar />
 
-      <div className="pb-32">
+      <div className="">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/artists" element={<ArtistPage />} />
@@ -36,7 +36,7 @@ function App() {
 
       <div className="fixed bottom-0 left-0 w-full z-50">
         <MusicPlayer />
-      <Footer />
+    
       </div>
     </div>
   )

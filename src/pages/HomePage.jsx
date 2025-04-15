@@ -9,6 +9,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/Card";
+import Footer from "../components/Footer";
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState("home");
@@ -370,6 +371,8 @@ export default function HomePage() {
           onClose={() => setShowGenreModal(false)}
         />
       )}
+
+      <Footer />
     </div>
   );
 }
