@@ -126,3 +126,15 @@ To complete your README:
 2. Update any specific technical details about your implementation
 3. Include any additional deployment instructions if applicable
 4. Add badges for CI/CD, package versions, etc. if available
+
+````
+![2_Objective-User-Friendly-Design](https://github.com/user-attachments/assets/2eb27411-abc3-4a0d-a1fc-34ab998b2051)
+![1_TuneNest-A-Modern-Music-Player](https://github.com/user-attachments/assets/8c1bc9ff-7333-404d-b992-b091e5f4f681)
+![10_Conclusion-Tune-In-to-TuneNest](https://github.com/user-attachments/assets/741cc9d9-ef13-4d4c-837c-f07b84b17743)
+![9_Future-Development](https://github.com/user-attachments/assets/726f1c37-5d98-4437-aa59-65da75eca6ca)
+![8_Performance-Metrics](https://github.com/user-attachments/assets/49759a64-d7ce-44f8-b4ee-c29be338fde7)
+![7_Visual-Design-and-User-Interface](https://github.com/user-attachments/assets/bfffb282-0b42-46b3-a45f-60e408b01614)
+![6_Bundling-with-Vite](https://github.com/user-attachments/assets/aea89a57-45ec-4512-8b83-99f5fabb2999)
+![5_Styling-with-Tailwind-CSS](https://github.com/user-attachments/assets/31f8eb12-22a7-45f2-b6e1-01ad7e9e5b28)
+![4_Core-Technologies-React](https://github.com/user-attachments/assets/356caad8-a383-4dc3-b045-2cb67f1daad5)
+![3_Key-Features-Instant-Playback](https://github.com/user-attachments/assets/47a7c38b-4bf7-4100-b20c-773f6f6ae658)
