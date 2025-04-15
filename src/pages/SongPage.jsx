@@ -1,64 +1,125 @@
 import React, { useState, useRef } from "react";
-import { Search, XCircle, Play, AudioLines, Bookmark } from "lucide-react";
+import { Search, XCircle, Play, Pause, AudioLines, Bookmark } from "lucide-react";
 
 const mockResults = [
   {
     title: "Song of the Wind",
     artist: "Artist A",
     duration: "3:32",
-    cover: "public/logo.jpeg",
-    audio: "public/audio.mp3",
+    cover: "/logo.jpeg",
+    audio: "/audio.mp3",
+    trending: true,
   },
   {
     title: "Midnight Drive",
     artist: "Artist C",
     duration: "3:32",
-    cover: "public/logo.jpeg",
-    audio: "public/audio.mp3",
+    cover: "/logo.jpeg",
+    audio: "/audio.mp3",
+    trending: false,
   },
   {
     title: "Purple Lights",
     artist: "Artist D",
     duration: "3:32",
-    cover: "public/logo.jpeg",
-    audio: "public/audio.mp3",
+    cover: "/logo.jpeg",
+    audio: "/audio.mp3",
+    trending: true,
   },
   {
     title: "Neon Rain",
     artist: "Artist E",
     duration: "3:32",
-    cover: "public/logo.jpeg",
-    audio: "public/audio.mp3",
+    cover: "/logo.jpeg",
+    audio: "/audio.mp3",
+    trending: false,
   },
   {
     title: "Dreamscape",
     artist: "Artist F",
     duration: "3:32",
-    cover: "public/logo.jpeg",
-    audio: "public/audio.mp3",
+    cover: "/logo.jpeg",
+    audio: "/audio.mp3",
+    trending: true,
   },
 ];
 
 const SongPage = () => {
   const [query, setQuery] = useState("");
-  const [filteredResults, setFilteredResults] = useState(mockResults);
   const [isFocused, setIsFocused] = useState(false);
+  const [currentPlayingIndex, setCurrentPlayingIndex] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [savedSongs, setSavedSongs] = useState([]);
+  const [activeTab, setActiveTab] = useState("forYou"); // forYou, trending, saved
+
   const inputRef = useRef(null);
+  const audioRefs = useRef([]);
+
+  // Filter logic
+  const getFilteredSongs = () => {
+    let baseList = mockResults;
+
+    if (activeTab === "trending") {
+      baseList = baseList.filter((song) => song.trending);
+    } else if (activeTab === "saved") {
+      baseList = baseList.filter((song) =>
+        savedSongs.some((saved) => saved.title === song.title)
+      );
+    }
+
+    return baseList.filter((song) =>
+      song.title.toLowerCase().includes(query.toLowerCase())
+    );
+  };
+
+  const filteredResults = getFilteredSongs();
 
   const handleSearch = (e) => {
-    const value = e.target.value;
-    setQuery(value);
-    const filtered = mockResults.filter((item) =>
-      item.title.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredResults(filtered);
+    setQuery(e.target.value);
   };
 
   const clearSearch = () => {
     setQuery("");
-    setFilteredResults(mockResults);
     inputRef.current.focus();
   };
+
+  const handlePlay = (index) => {
+    const currentAudio = audioRefs.current[index];
+
+    // Pause all other audios
+    audioRefs.current.forEach((audio, i) => {
+      if (audio && i !== index) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    });
+
+    if (currentPlayingIndex === index && isPlaying) {
+      currentAudio.pause();
+      setIsPlaying(false);
+    } else {
+      currentAudio.play();
+      setCurrentPlayingIndex(index);
+      setIsPlaying(true);
+    }
+
+    currentAudio.onended = () => {
+      setIsPlaying(false);
+      setCurrentPlayingIndex(null);
+    };
+  };
+
+  const toggleBookmark = (song) => {
+    const isAlreadySaved = savedSongs.some((item) => item.title === song.title);
+    if (isAlreadySaved) {
+      setSavedSongs(savedSongs.filter((item) => item.title !== song.title));
+    } else {
+      setSavedSongs([...savedSongs, song]);
+    }
+  };
+
+  const isBookmarked = (song) =>
+    savedSongs.some((item) => item.title === song.title);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white p-6">
@@ -94,61 +155,36 @@ const SongPage = () => {
           />
         </div>
 
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center justify-between mb-4 ml-3">
-            <button className="border border-gray-700 rounded-xl px-2 py-1 flex items-center gap-2 hover:bg-gray-800 transition-colors">
-              <h3 className="text-lg font-semibold text-gray-300">For you</h3>
+        {/* Tabs */}
+        <div className="flex justify-between mb-6">
+          {["forYou", "trending", "saved"].map((tab) => (
+            <button
+              key={tab}
+              className={`border px-4 py-2 rounded-xl font-semibold transition-colors ${
+                activeTab === tab
+                  ? "bg-cyan-600 border-cyan-500 text-white"
+                  : "border-gray-700 text-gray-300 hover:bg-gray-700"
+              }`}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab === "forYou"
+                ? "For You"
+                : tab === "trending"
+                ? "Trending"
+                : "Saved"}
             </button>
-          </div>
-          <div className="flex items-center justify-between mb-4">
-            <button className="border border-gray-700 rounded-xl px-2 py-1 flex items-center gap-2 hover:bg-gray-800 transition-colors">
-              <h3 className="text-lg font-semibold text-gray-300">Tranding</h3>
-            </button>
-          </div>
-          <div className="flex items-center justify-between mb-4 ml-80">
-            <button className="border border-gray-700 rounded-xl px-2 py-1 flex items-center gap-2 hover:bg-gray-800 transition-colors">
-              <h3 className="text-lg font-semibold text-gray-300">Saved</h3>
-            </button>
-          </div>
+          ))}
         </div>
 
-        {/* <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-300">Search Results</h3>
-          {query && (
-            <button
-              className="text-sm text-cyan-400 hover:text-cyan-500 transition-colors"
-              onClick={clearSearch}
-            >
-              Clear Search
-            </button>
-          )}
-
-        </div> */}
-
-        {/* <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-300">Results</h3>
-          <button className="text-sm text-cyan-400 hover:text-cyan-500 transition-colors">
-            Clear All
-          </button>
-
-        </div> */}
-
-        {/* Search Results Count */}
-        {/* <div>
-          <p className="text-gray-400 text-sm mb-2">
-            {filteredResults.length} results found
-          </p>
-        </div> */}
-
-        {/* Results */}
-        <div className=" sm:grid-cols-2 gap-4">
+        {/* Songs */}
+        <div className="sm:grid-cols-2 gap-4">
           {filteredResults.length > 0 ? (
             filteredResults.map((result, index) => (
               <div
                 key={index}
                 className="bg-gray-800 mb-3 rounded-xl overflow-hidden shadow-lg hover:shadow-cyan-300 transition-shadow flex items-center p-4 relative"
               >
-                {/* Left: Circular Image */}
+                {/* Left Image */}
                 <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
                   <img
                     src={result.cover}
@@ -161,7 +197,7 @@ const SongPage = () => {
                   />
                 </div>
 
-                {/* Center: Song Info */}
+                {/* Song Info */}
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold">{result.title}</h3>
                   <p className="text-sm text-gray-400">
@@ -169,18 +205,42 @@ const SongPage = () => {
                   </p>
                 </div>
 
-                <div className=" grid grid-cols-2 gap-3">
-                  {/* Right: Duration + Play */}
+                {/* Actions */}
+                <div className="grid grid-cols-2 gap-3">
                   <div className="flex flex-col items-end justify-center">
-                    {/* <p className="text-sm text-gray-400 mb-1">{result.duration}</p> */}
-                    <button className="p-2 bg-white rounded-full hover:bg-cyan-400 transition-colors">
-                      <Play size={18} className="text-gray-800" />
+                    <button
+                      className="p-2 bg-white rounded-full hover:bg-cyan-400 transition-colors"
+                      onClick={() => handlePlay(index)}
+                    >
+                      {currentPlayingIndex === index && isPlaying ? (
+                        <Pause size={18} className="text-gray-800" />
+                      ) : (
+                        <Play size={18} className="text-gray-800" />
+                      )}
                     </button>
+                    <audio
+                      ref={(el) => (audioRefs.current[index] = el)}
+                      src={result.audio}
+                    />
                   </div>
 
                   <div className="flex flex-col items-end justify-center">
-                    <button className="p-2 bg-white rounded-full hover:bg-cyan-400 transition-colors">
-                      <Bookmark size={18} className="text-gray-800" />
+                    <button
+                      onClick={() => toggleBookmark(result)}
+                      className={`p-2 rounded-full transition-colors ${
+                        isBookmarked(result)
+                          ? "bg-cyan-400"
+                          : "bg-white hover:bg-cyan-400"
+                      }`}
+                    >
+                      <Bookmark
+                        size={18}
+                        className={`${
+                          isBookmarked(result)
+                            ? "text-white"
+                            : "text-gray-800"
+                        }`}
+                      />
                     </button>
                   </div>
                 </div>
@@ -197,4 +257,4 @@ const SongPage = () => {
   );
 };
 
-export default SongPage;
+export default SongPage; 
