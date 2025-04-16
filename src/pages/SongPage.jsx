@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Search, XCircle, Play, Pause, AudioLines, Bookmark } from "lucide-react";
 import Footer from "../components/Footer";
-import RedHeadPhoneModel from "../models/RedHeadPhone"; // Assuming this is the correct path to your model
+import RedHeadPhoneModel from "../models/RedHeadPhone"; 
 
 
 const mockResults = [

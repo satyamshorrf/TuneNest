@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Search, User, Home, Music, Disc, Users, Menu, X, Compass } from "lucide-react";
+import {
+  Search,
+  Home,
+  Music,
+  Disc,
+  Users,
+  Menu,
+  X,
+  Compass,
+} from "lucide-react";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -55,53 +64,31 @@ const Navbar = () => {
             <span>ALBUMS</span>
           </NavLink>
 
-
           <NavLink
             to="/artists"
             className={({ isActive }) =>
               `flex items-center space-x-2 font-small transition ${
-                isActive ? "text-purple-400" : "text-white" 
+                isActive ? "text-purple-400" : "text-white"
               } hover:text-cyan-400`
             }
           >
-          <Users  size={18} />
+            <Users size={18} />
             <span>ARTISTS</span>
           </NavLink>
-
-          <NavLink
-            to="/explores"
-            className={({ isActive }) =>
-              `flex items-center space-x-2 font-small transition ${
-                isActive ? "text-purple-400" : "text-white" 
-              } hover:text-cyan-400`
-            }
-          >
-             <Compass  size={18} />
-            <span>EXPLORES</span>
-          </NavLink>
-
-
-          
-
         </nav>
 
         {/* Icons (hidden on mobile) */}
-        <div className="hidden md:flex gap-4 items-center ml-4">
+        <div className="hidden md:flex gap-4 items-center ml-2">
           <Link to="/search">
             <button className="p-2 rounded-full hover:bg-gray-800 transition">
               <Search className="w-5 h-5" />
-            </button>
-          </Link>
-          <Link to="/users">
-            <button className="p-2 rounded-full hover:bg-gray-800 transition">
-              <User className="w-5 h-5" />
             </button>
           </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-cyan-300 ml-4"
+          className="md:hidden text-cyan-300 ml-4 mr-[13rem]"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -110,7 +97,10 @@ const Navbar = () => {
 
       {/* Mobile Menu Items */}
       {menuOpen && (
-        <div className="md:hidden absolute right-4 top-[5rem] bg-gray-700 px-4 py-3 text-right rounded-lg shadow-lg w-30 space-y-2">
+        <div
+          className="md:hidden absolute top-[5rem] bg-gray-700 px-4 py-3 text-right rounded-lg shadow-lg w-30 space-y-2"
+          style={{ right: "210px" }} // 20px (1rem) - 5px = 15px
+        >
           <Link to="/" className="block text-white hover:text-cyan-400">
             HOME
           </Link>

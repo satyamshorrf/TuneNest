@@ -25,7 +25,7 @@ export default function SearchPage() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "-100vh", opacity: 1 }}
           transition={{ duration: 1, ease: "easeInOut" }}
-          className="relative min-h-screen bg-blue-600 flex items-center justify-center"
+          className="relative min-h-screen bg-cyan-800 flex items-center justify-center"
         >
           {/* Close Button */}
           <div className="absolute top-4 right-4">

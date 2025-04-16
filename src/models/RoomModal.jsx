@@ -10,7 +10,7 @@ export default function ModelViewer() {
   return (
     <model-viewer
       ref={modelRef}
-      src="glb/studio.glb"
+      src="glb/room.glb"
       alt="3D Headphones"
       auto-rotate
       camera-controls

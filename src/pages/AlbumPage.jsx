@@ -1,7 +1,8 @@
-import { Play, Search } from "lucide-react";
+import { Music, Play, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-import RoomModal from "../models/RoomModal"; // Assuming this is the correct path to your model
+import RoomModal from "../models/RoomModal"; 
+import MusicPlayer from "../components/MusicPlayer";
 
 const albums = [
   { name: "Starlight Drive", img: "/imgs/album1.jpg" },
@@ -68,6 +69,7 @@ function AlbumsPage() {
         ))}
       </div>
       <Footer />
+      <MusicPlayer />
     </div>
   );
 }

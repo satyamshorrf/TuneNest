@@ -1,159 +1,199 @@
-import {
-  SkipBack,
-  SkipForward,
-  Play,
-  Pause,
-  Repeat,
-  Shuffle
-} from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Play, Pause, SkipForward, SkipBack, Volume2 } from "lucide-react";
 
-export default function MusicPlayerCard() {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isRepeat, setIsRepeat] = useState(false);
-  const [isShuffle, setIsShuffle] = useState(false);
+const MusicPlayer = ({ songs = [] }) => {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
-
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(80);
+  const [progress, setProgress] = useState(0);
   const audioRef = useRef(null);
 
-  // Array of 5 unique songs
-  const songs = [
+  // Initialize with default songs if none provided
+  const defaultSongs = [
     {
-      title: "Song 1",
-      artist: "Artist 1",
-      audio: "/audio.mp3",
-      cover: "https://placehold.co/50x50"
+      title: "Song of the Wind",
+      artist: "Artist A",
+      cover: "/logo.jpeg",
+      audio: "audio/audio_1.mp3",
     },
     {
-      title: "Song 2",
-      artist: "Artist 2",
-      audio: "/audio.mp3",
-      cover: "https://placehold.co/50x50"
+      title: "Midnight Drive",
+      artist: "Artist C",
+      cover: "/logo.jpeg",
+      audio: "audio/audio_2.mp3",
     },
-    {
-      title: "Song 3",
-      artist: "Artist 3",
-      audio: "/audio1.mp3",
-      cover: "https://placehold.co/50x50"
-    },
-    {
-      title: "Song 4",
-      artist: "Artist 4",
-      audio: "/audio1.mp3",
-      cover: "https://placehold.co/50x50"
-    },
-    {
-      title: "Song 5",
-      artist: "Artist 5",
-      audio: "/audio1.mp3",
-      cover: "https://placehold.co/50x50"
-    }
   ];
 
-  const togglePlay = () => {
-    if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying((prev) => !prev);
-  };
+  const playerSongs = songs.length > 0 ? songs : defaultSongs;
 
-  const toggleRepeat = () => setIsRepeat((prev) => !prev);
-  const toggleShuffle = () => setIsShuffle((prev) => !prev);
-
-  const handleNextSong = () => {
-    let nextIndex;
-    if (isShuffle) {
-      nextIndex = Math.floor(Math.random() * songs.length);
-    } else {
-      nextIndex = (currentSongIndex + 1) % songs.length;
-    }
-    setCurrentSongIndex(nextIndex);
-    setIsPlaying(true);
-  };
-
-  const handlePrevSong = () => {
-    const prevIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-    setCurrentSongIndex(prevIndex);
-    setIsPlaying(true);
-  };
-
-  // Play new song when index changes
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.load(); // reload audio
-      if (isPlaying) {
-        audioRef.current.play(); // auto play if already playing
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const updateProgress = () => {
+      if (audio.duration) {
+        setProgress((audio.currentTime / audio.duration) * 100);
       }
+    };
+
+    audio.addEventListener("timeupdate", updateProgress);
+    audio.addEventListener("ended", handleNext);
+
+    return () => {
+      audio.removeEventListener("timeupdate", updateProgress);
+      audio.removeEventListener("ended", handleNext);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.play().catch((error) => {
+        console.error("Audio playback failed:", error);
+        setIsPlaying(false);
+      });
+    } else {
+      audioRef.current.pause();
     }
-  }, [currentSongIndex, isPlaying]);
+  }, [isPlaying, currentSongIndex]);
+
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleNext = () => {
+    setCurrentSongIndex((prevIndex) =>
+      prevIndex === playerSongs.length - 1 ? 0 : prevIndex + 1
+    );
+    setProgress(0);
+  };
+
+  const handlePrevious = () => {
+    setCurrentSongIndex((prevIndex) =>
+      prevIndex === 0 ? playerSongs.length - 1 : prevIndex - 1
+    );
+    setProgress(0);
+  };
+
+  const handleVolumeChange = (e) => {
+    const newVolume = e.target.value;
+    setVolume(newVolume);
+    audioRef.current.volume = newVolume / 100;
+  };
+
+  const handleProgressClick = (e) => {
+    const progressBar = e.currentTarget;
+    const clickPosition = e.clientX - progressBar.getBoundingClientRect().left;
+    const progressBarWidth = progressBar.clientWidth;
+    const seekPercentage = (clickPosition / progressBarWidth) * 100;
+
+    if (audioRef.current.duration) {
+      const seekTime = (audioRef.current.duration * seekPercentage) / 100;
+      audioRef.current.currentTime = seekTime;
+      setProgress(seekPercentage);
+    }
+  };
 
   return (
-    <div className="absolute bottom-4 left-4 bg-gray-800 p-4 rounded-lg flex items-center space-x-4 w-full max-w-md z-50 shadow-lg">
-      {/* Album Art */}
-      <img
-        src={songs[currentSongIndex].cover}
-        alt="Album cover"
-        className="w-12 h-12 rounded-full"
-      />
+    <div className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 p-3 shadow-lg">
+      <div className="max-w-6xl mx-auto flex items-center">
+        {/* Song Info */}
+        <div className="flex items-center w-1/4">
+          <img
+            src={playerSongs[currentSongIndex]?.cover || "/logo.jpeg"}
+            alt="Album Cover"
+            className="w-12 h-12 rounded-lg mr-3"
+          />
+          <div>
+            <h4 className="font-semibold text-sm truncate">
+              {playerSongs[currentSongIndex]?.title || "No song selected"}
+            </h4>
+            <p className="text-xs text-gray-400 truncate">
+              {playerSongs[currentSongIndex]?.artist || "Unknown artist"}
+            </p>
+          </div>
+        </div>
 
-      {/* Song Info */}
-      <div className="flex-1">
-        <h3 className="text-white text-sm font-semibold truncate">
-          {songs[currentSongIndex].title}
-        </h3>
-        <p className="text-gray-400 text-xs truncate">
-          {songs[currentSongIndex].artist}
-        </p>
+        {/* Player Controls */}
+        <div className="flex-1 flex flex-col items-center">
+          <div className="flex items-center space-x-4 mb-1">
+            <button
+              onClick={handlePrevious}
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              <SkipBack size={20} />
+            </button>
+            <button
+              onClick={togglePlay}
+              className="p-2 bg-cyan-600 rounded-full hover:bg-cyan-500 transition-colors"
+            >
+              {isPlaying ? (
+                <Pause size={20} className="text-white" />
+              ) : (
+                <Play size={20} className="text-white" />
+              )}
+            </button>
+            <button
+              onClick={handleNext}
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              <SkipForward size={20} />
+            </button>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="w-full flex items-center">
+            <span className="text-xs text-gray-400 mr-2">
+              {audioRef.current
+                ? formatTime(audioRef.current.currentTime)
+                : "0:00"}
+            </span>
+            <div
+              className="flex-1 h-1.5 bg-gray-700 rounded-full overflow-hidden cursor-pointer"
+              onClick={handleProgressClick}
+            >
+              <div
+                className="h-full bg-cyan-400 rounded-full"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+            <span className="text-xs text-gray-400 ml-2">
+              {audioRef.current
+                ? formatTime(audioRef.current.duration)
+                : "0:00"}
+            </span>
+          </div>
+        </div>
+
+        {/* Volume Control */}
+        <div className="w-1/4 flex justify-end items-center">
+          <Volume2 size={16} className="text-gray-400 mr-2" />
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={volume}
+            onChange={handleVolumeChange}
+            className="w-24 accent-cyan-500"
+          />
+        </div>
+
+        {/* Hidden Audio Element */}
+        <audio
+          ref={audioRef}
+          src={playerSongs[currentSongIndex]?.audio}
+          preload="metadata"
+        />
       </div>
-
-      {/* Controls */}
-      <div className="flex items-center space-x-2">
-        <button
-          onClick={toggleShuffle}
-          className={`${
-            isShuffle ? "text-cyan-400" : "text-gray-400"
-          } hover:text-cyan-300`}
-        >
-          <Shuffle size={18} />
-        </button>
-        <button
-          onClick={handlePrevSong}
-          className="text-gray-400 hover:text-white"
-        >
-          <SkipBack size={18} />
-        </button>
-        <button
-          onClick={togglePlay}
-          className="text-white bg-gray-700 p-2 rounded-full hover:bg-gray-600"
-        >
-          {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-        </button>
-        <button
-          onClick={handleNextSong}
-          className="text-gray-400 hover:text-white"
-        >
-          <SkipForward size={18} />
-        </button>
-        <button
-          onClick={toggleRepeat}
-          className={`${
-            isRepeat ? "text-cyan-400" : "text-gray-400"
-          } hover:text-cyan-300`}
-        >
-          <Repeat size={18} />
-        </button>
-      </div>
-
-      {/* Audio Element */}
-      <audio
-        ref={audioRef}
-        src={songs[currentSongIndex].audio}
-        onEnded={handleNextSong}
-        loop={isRepeat}
-      />
     </div>
   );
+};
+
+// Helper function to format time (seconds to MM:SS)
+function formatTime(seconds) {
+  if (isNaN(seconds)) return "0:00";
+  const minutes = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
 }
+
+export default MusicPlayer;

@@ -18,6 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../components/Card";
 import Footer from "../components/Footer";
 
 import PinkHeadPHone from "../models/PinkHeadPhone";
+import MusicPlayer from "../components/MusicPlayer";
 
 export default function HomePage() {
   // const [activeTab, setActiveTab] = useState("home");
@@ -350,6 +351,7 @@ export default function HomePage() {
       </main>
 
       <Footer />
+      <MusicPlayer />
     </div>
   );
 }
