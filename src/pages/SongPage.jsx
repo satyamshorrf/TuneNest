@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import { Search, XCircle, Play, Pause, AudioLines, Bookmark } from "lucide-react";
 import Footer from "../components/Footer";
+import RedHeadPhoneModel from "../models/RedHeadPhone"; // Assuming this is the correct path to your model
+
 
 const mockResults = [
   {
@@ -140,6 +142,7 @@ const SongPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white p-6">
+      <RedHeadPhoneModel />
       <div className="max-w-xl mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-center text-cyan-400">
           Search Music

@@ -1,6 +1,7 @@
 import { Play, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import RoomModal from "../models/RoomModal"; // Assuming this is the correct path to your model
 
 const albums = [
   { name: "Starlight Drive", img: "/imgs/album1.jpg" },
@@ -48,6 +49,7 @@ const albums = [
 function AlbumsPage() {
   return (
     <div className="bg-gray-900 min-h-screen p-4 sm:p-8">
+      <RoomModal />
       <h2 className="text-2xl font-bold mb-6 text-cyan-400 text-center sm:text-left">Albums</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 sm:gap-10 lg:gap-20 max-w-7xl mx-auto">
         {albums.map((album, index) => (

@@ -11,7 +11,6 @@ import {
   X,
   ChevronLeft,
   Music,
- 
   Search,
   ChevronRight,
 } from "lucide-react";
@@ -22,10 +21,7 @@ import PinkHeadPHone from "../models/PinkHeadPhone";
 
 export default function HomePage() {
   // const [activeTab, setActiveTab] = useState("home");
-  const [showSongModal, setShowSongModal] = useState(false);
-  const [showArtistModal, setShowArtistModal] = useState(false);
-  const [showGenreModal, setShowGenreModal] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
+
   const [selectedGenre, setSelectedGenre] = useState("Rock");
 
   const trendingSongs = [
@@ -102,7 +98,12 @@ export default function HomePage() {
     },
   ];
 
-  const environments = ["imgs/ve_1.jpg", "/imgs/ve_2.jpg", "imgs/ve_3.jpg", "imgs/ve_1.jpg"];
+  const environments = [
+    "imgs/ve_1.jpg",
+    "/imgs/ve_2.jpg",
+    "imgs/ve_3.jpg",
+    "imgs/ve_1.jpg",
+  ];
 
   const avatars = [
     "imgs/av_1.jpg",
@@ -113,21 +114,6 @@ export default function HomePage() {
   ];
 
   const genres = ["Rock", "Pop", "JAZZ", "Techno", "More"];
-
-  const openSongModal = (song) => {
-    setSelectedItem(song);
-    setShowSongModal(true);
-  };
-
-  const openArtistModal = (artist) => {
-    setSelectedItem(artist);
-    setShowArtistModal(true);
-  };
-
-  const openGenreModal = (genre) => {
-    setSelectedItem(genre);
-    setShowGenreModal(true);
-  };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -141,7 +127,8 @@ export default function HomePage() {
           <h1 className="text-2xl font-bold">Cloud</h1>
         </div>
       </header> */}
-      
+
+      <PinkHeadPHone />
 
       <main className="p-6 max-w-7xl mx-auto">
         {/* Featured Song Section */}
@@ -188,7 +175,7 @@ export default function HomePage() {
         {/* Trending Songs Section */}
         <section className="mb-12">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0 ">
             <h2 className="text-2xl font-bold">Trending Songs</h2>
             <button className="flex items-center space-x-2 text-purple-400 hover:text-purple-300">
               <Play size={18} />
@@ -358,35 +345,9 @@ export default function HomePage() {
                 />
               </div>
             ))}
-
-
-
-
-
           </div>
         </section>
       </main>
-
-      {showSongModal && (
-        <SongModal
-          song={selectedItem}
-          onClose={() => setShowSongModal(false)}
-        />
-      )}
-      {showArtistModal && (
-        <ArtistModal
-          artist={selectedItem}
-          onClose={() => setShowArtistModal(false)}
-        />
-      )}
-      {showGenreModal && (
-        <GenreModal
-          genre={selectedItem}
-          onClose={() => setShowGenreModal(false)}
-        />
-      )}
-
-      <PinkHeadPHone />
 
       <Footer />
     </div>
