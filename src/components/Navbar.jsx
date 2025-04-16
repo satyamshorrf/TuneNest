@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Search, User, Home, Music, Disc, Users, Menu, X } from "lucide-react";
+import { Search, User, Home, Music, Disc, Users, Menu, X, Compass } from "lucide-react";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -64,8 +64,20 @@ const Navbar = () => {
               } hover:text-cyan-400`
             }
           >
-            <Users size={18} />
+          <Users  size={18} />
             <span>ARTISTS</span>
+          </NavLink>
+
+          <NavLink
+            to="/explores"
+            className={({ isActive }) =>
+              `flex items-center space-x-2 font-small transition ${
+                isActive ? "text-purple-400" : "text-white" 
+              } hover:text-cyan-400`
+            }
+          >
+             <Compass  size={18} />
+            <span>EXPLORES</span>
           </NavLink>
 
 

@@ -1,5 +1,6 @@
 import { Play, Search } from "lucide-react";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const albums = [
   { name: "Starlight Drive", img: "/imgs/album1.jpg" },
@@ -64,6 +65,7 @@ function AlbumsPage() {
           </Link>
         ))}
       </div>
+      <Footer />
     </div>
   );
 }

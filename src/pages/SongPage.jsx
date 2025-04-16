@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Search, XCircle, Play, Pause, AudioLines, Bookmark } from "lucide-react";
+import Footer from "../components/Footer";
 
 const mockResults = [
   {
@@ -7,7 +8,7 @@ const mockResults = [
     artist: "Artist A",
     duration: "3:32",
     cover: "/logo.jpeg",
-    audio: "/audio.mp3",
+    audio: "audio/audio_1.mp3",
     trending: true,
   },
   {
@@ -15,7 +16,7 @@ const mockResults = [
     artist: "Artist C",
     duration: "3:32",
     cover: "/logo.jpeg",
-    audio: "/audio.mp3",
+    audio: "audio/audio_2.mp3",
     trending: false,
   },
   {
@@ -23,7 +24,7 @@ const mockResults = [
     artist: "Artist D",
     duration: "3:32",
     cover: "/logo.jpeg",
-    audio: "/audio.mp3",
+    audio: "audio/audio_3.mp3",
     trending: true,
   },
   {
@@ -31,7 +32,7 @@ const mockResults = [
     artist: "Artist E",
     duration: "3:32",
     cover: "/logo.jpeg",
-    audio: "/audio.mp3",
+    audio: "audio/audio_4.mp3",
     trending: false,
   },
   {
@@ -39,7 +40,23 @@ const mockResults = [
     artist: "Artist F",
     duration: "3:32",
     cover: "/logo.jpeg",
-    audio: "/audio.mp3",
+    audio: "audio/audio_5.mp3",
+    trending: true,
+  },
+  {
+    title: "Dreamscape",
+    artist: "Artist F",
+    duration: "3:32",
+    cover: "/logo.jpeg",
+    audio: "audio/audio_6.mp3",
+    trending: true,
+  },
+  {
+    title: "Dreamscape",
+    artist: "Artist F",
+    duration: "3:32",
+    cover: "/logo.jpeg",
+    audio: "audio/audio_7.mp3",
     trending: true,
   },
 ];
@@ -253,6 +270,8 @@ const SongPage = () => {
           )}
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

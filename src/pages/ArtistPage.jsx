@@ -1,4 +1,5 @@
 import { Play, Search } from "lucide-react";
+import Footer from "../components/Footer";
 
 const albums = Array(10).fill({ name: "Starlight Drive", artist: "Luma" });
 
@@ -22,6 +23,7 @@ function ArtistPage() {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 }

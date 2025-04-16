@@ -1,15 +1,24 @@
 import { useState } from "react";
 import {
   Play,
-  Home,
+  Pause,
+  Repeat,
+  Shuffle,
+  Volume,
+  SkipBack,
+  SkipForward,
+  Menu,
+  X,
+  ChevronLeft,
   Music,
-  Disc,
-  Users,
+ 
   Search,
   ChevronRight,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/Card";
 import Footer from "../components/Footer";
+
+import PinkHeadPHone from "../models/PinkHeadPhone";
 
 export default function HomePage() {
   // const [activeTab, setActiveTab] = useState("home");
@@ -27,7 +36,7 @@ export default function HomePage() {
       description: "Chill vibes for your nighttime routine",
       duration: "3:45",
       plays: "1.2M",
-      coverImage: "/HeadPhone.jpg",
+      coverImage: "imgs/HeadPhone.jpg",
       audioUrl: "/audio.mp3",
     },
     {
@@ -37,7 +46,7 @@ export default function HomePage() {
       description: "Upbeat electronic beats to energize your day",
       duration: "4:12",
       plays: "890K",
-      coverImage: "/PlayButton.jpeg",
+      coverImage: "imgs/PlayButton.jpeg",
       audioUrl: "/audio.mp3",
     },
   ];
@@ -48,21 +57,21 @@ export default function HomePage() {
       name: "Elon Black",
       genre: "Electronic",
       monthlyListeners: "5.7M",
-      image: "/Circle_pink.jpg",
+      image: "imgs/Circle_pink.jpg",
     },
     {
       id: 2,
       name: "Nova Wave",
       genre: "Synthwave",
       monthlyListeners: "3.2M",
-      image: "/Robot.jpg",
+      image: "imgs/Robot.jpg",
     },
     {
       id: 3,
       name: "Neon Lights",
       genre: "Retrowave",
       monthlyListeners: "2.8M",
-      image: "/av_1.jpg",
+      image: "imgs/av_1.jpg",
     },
   ];
 
@@ -71,36 +80,36 @@ export default function HomePage() {
       id: 1,
       name: "Gravity",
       description: "Heavy bass and deep tones",
-      image: "/circle_tt.jpg",
+      image: "imgs/circle_tt.jpg",
     },
     {
       id: 2,
       name: "Dreamscape",
       description: "Ethereal and atmospheric",
-      image: "/Circle_l.webp",
+      image: "imgs/Circle_l.webp",
     },
     {
       id: 3,
       name: "Beyond the Stars",
       description: "Cosmic and expansive",
-      image: "/Circle_5.jpg",
+      image: "imgs/Circle_5.jpg",
     },
     {
       id: 4,
       name: "Future Waves",
       description: "Futuristic and innovative",
-      image: "/Triangle.jpg",
+      image: "imgs/Triangle.jpg",
     },
   ];
 
-  const environments = ["/ve_1.jpg", "/ve_2.jpg", "/ve_3.jpg", "/ve_1.jpg"];
+  const environments = ["imgs/ve_1.jpg", "/imgs/ve_2.jpg", "imgs/ve_3.jpg", "imgs/ve_1.jpg"];
 
   const avatars = [
-    "/av_1.jpg",
-    "/av_2.jpg",
-    "/av_3.jpg",
-    "/av_4.jpg",
-    "/av_5.jpg",
+    "imgs/av_1.jpg",
+    "imgs/av_2.jpg",
+    "imgs/av_3.jpg",
+    "imgs/av_4.jpg",
+    "imgs/av_5.jpg",
   ];
 
   const genres = ["Rock", "Pop", "JAZZ", "Techno", "More"];
@@ -165,7 +174,7 @@ export default function HomePage() {
                     </CardContent>
                   </div>
                   <img
-                    src="/PlayButton.jpeg"
+                    src="imgs/PlayButton.jpeg"
                     onClick={() => openSongModal(song)}
                     alt="Play"
                     className="w-18 h-16 object-contain rounded-full bg-gray-800 hover:bg-gray-700 cursor-pointer"
@@ -349,6 +358,11 @@ export default function HomePage() {
                 />
               </div>
             ))}
+
+
+
+
+
           </div>
         </section>
       </main>
@@ -371,6 +385,8 @@ export default function HomePage() {
           onClose={() => setShowGenreModal(false)}
         />
       )}
+
+      <PinkHeadPHone />
 
       <Footer />
     </div>
