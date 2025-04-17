@@ -97,7 +97,7 @@ const ArtistPage = () => {
           {models.slice(0, 2).map((item, index) => (
             <div
               key={index}
-              className="bg-purple-300 rounded-xl p-4 flex flex-col items-center w-[800px] cursor-pointer hover:bg-purple-800 transition-colors"
+              className="bg-purple-300 rounded-xl p-4 flex flex-col items-center w-[550px] cursor-pointer hover:bg-purple-800 transition-colors"
               onClick={() => handleSongSelect(item.label)}
             >
               <div className="w-full h-[500px] flex items-center justify-center">
@@ -115,7 +115,7 @@ const ArtistPage = () => {
           {models.slice(2, 4).map((item, index) => (
             <div
               key={index + 2}
-              className="bg-cyan-700 rounded-xl p-4 flex flex-col items-center w-[800px] cursor-pointer hover:bg-cyan-600 transition-colors"
+              className="bg-cyan-700 rounded-xl p-4 flex flex-col items-center w-[550px] cursor-pointer hover:bg-cyan-600 transition-colors"
               onClick={() => handleSongSelect(item.label)}
             >
               <div className="w-full h-[500px] flex items-center justify-center">
